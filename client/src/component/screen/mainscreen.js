@@ -16,7 +16,7 @@ const Mainscreen = () => {
         {/* <h2>{p.name.name}</h2>  */}
          
 
-         <Product product={p}/>
+         <Product key={p._id} product={p}/>
 
 
          </Col>
