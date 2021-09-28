@@ -2,17 +2,29 @@ import React from 'react'
 import {Navbar, Nav, Container} from 'react-bootstrap'
 
 
+import {LinkContainer} from 'react-router-bootstrap' 
 const Navbarr = () => {
     return (
         <div>
        <Navbar bg="dark" variant='dark' expand="lg" collapseOnSelect>
   <Container>
-    <Navbar.Brand href="/">Proshop</Navbar.Brand>
+
+  <LinkContainer to='/'>
+
+    <Navbar.Brand>Proshop</Navbar.Brand>
+    </LinkContainer>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
+    
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="ml-auto">
-        <Nav.Link href="/cart"><i className='fas fa-shopping-cart'></i> cart</Nav.Link>
-        <Nav.Link href="/signin"><i className='fas fa-user'></i> Sign in</Nav.Link>
+
+        <LinkContainer to='/cart'>  
+
+        <Nav.Link><i className='fas fa-shopping-cart'></i> cart</Nav.Link>
+        </LinkContainer>
+        <LinkContainer to='/signin'> 
+        <Nav.Link><i className='fas fa-user'></i> Sign in</Nav.Link>
+        </LinkContainer>
         {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
           <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
           <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
@@ -23,9 +35,12 @@ const Navbarr = () => {
       </Nav>
     </Navbar.Collapse>
   </Container>
+
+
 </Navbar>     
         </div>
     )
 }
+
 
 export default Navbarr
