@@ -52,8 +52,11 @@ const Productscreen = ({match}) => {
 
         <Col>
         Status: 
+       
+       
        </Col>
        <Col>
+       
         {product.countInStock > 0 ? 'in stock':'out of stock'}
        </Col>   
         </Row>    
@@ -66,7 +69,7 @@ const Productscreen = ({match}) => {
     </Col>
     </Row>   
  
-
+    
 
         </div>
  
