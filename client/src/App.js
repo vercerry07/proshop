@@ -8,25 +8,29 @@ import {BrowserRouter, Route} from 'react-router-dom'
 import Productscreen from './component/screen/productscreen';
 function App() {    
   return (
+
 <div className="App">
 
- <BrowserRouter> 
- 
+ <BrowserRouter>  
    <Navbarr /> 
   <main className='py-2'>     
+ 
+ 
   <Container>
 
   <Route path='/' component={Mainscreen} exact></Route>  
   
   <Route path='/product/:id' component={Productscreen}></Route>  
-
   {/* <Mainscreen /> */}
 </Container>
   </main>  
    <Footer />  
  </BrowserRouter>
+   
     </div>
   
   );
+
 }
+
 export default App;
