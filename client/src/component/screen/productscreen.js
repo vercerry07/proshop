@@ -1,21 +1,32 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {Link} from 'react-router-dom'
 
 
 import {Row, Col, Image, ListGroup, Card, Button} from 'react-bootstrap'
 import Rating from '../rating'
-import products from '../../products'
-const Productscreen = ({match}) => {    
-    let product = products.find((p)=>p._id === match.params.id)
-    // console.log(product)
+import {useDispatch, useSelector} from 'react-redux'
+import {listproductdetail} from '../../action/productaction'
+import Loader from '../loader'
+import Message from '../message'
 
-    return (
- 
+const Productscreen = ({match}) => {    
+
+    const dispatch = useDispatch()    
+    useEffect(() => {        
+        dispatch(listproductdetail(match.params.id))
+    }, [dispatch, match])
+   const productdetail = useSelector(state => state.productdetail) 
+   
+
+   let {loading, error, product} = productdetail 
+      
+   return (
  <div>
+    {loading ? <Loader /> : error ? <Message >{error}</Message>: 
+    (
+<div>
     <Link className='btn btn-secondary my-2' to='/'>Go back</Link>         
-    <Row> 
-        
-    
+    <Row>  
     <Col md={6} > 
     <Image src={product.image} alt={product.name} fluid/>   
     </Col>
@@ -67,7 +78,12 @@ const Productscreen = ({match}) => {
     </ListGroup> 
      </Card>  
     </Col>
-    </Row>   
+    </Row>
+    </div>
+    )
+    
+    }
+       
  
     
 

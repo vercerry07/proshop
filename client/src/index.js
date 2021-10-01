@@ -11,22 +11,30 @@ import thunk from 'redux-thunk'
 
 import {composeWithDevTools} from 'redux-devtools-extension'
 
-import {Productlistreducer} from './reducer/productreducer'
+import {Productlistreducer, Productdetailreducer} from './reducer/productreducer'
 let reducer = combineReducers({
-  productlist:Productlistreducer
+  productlist:Productlistreducer,
+      
+  
+  
 
+  productdetail:Productdetailreducer
 
 })
 let intialstate = {}
 let middleware = [thunk]
-
 let store = createStore(reducer, intialstate, composeWithDevTools(applyMiddleware(...middleware)))
 ReactDOM.render(
 <React.StrictMode>  
+  
     <Provider store={store}> 
-    <App />
+    <App />  
     </Provider>
   
   </React.StrictMode>,
+  
   document.getElementById('root')
+ 
+
+
  );
