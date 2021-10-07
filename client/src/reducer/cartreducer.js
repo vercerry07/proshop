@@ -21,7 +21,12 @@ export let cartreducer = (state = { cartitem:[]},action)=>{
           }  
     
         }
-      default:
+    case 'CART_REMOVE_ITEM':
+      return {
+        ...state,
+        cartitem: state.cartitem.filter(x => x.product !== action.payload)
+      }  
+        default:
           return state
      }  
 }

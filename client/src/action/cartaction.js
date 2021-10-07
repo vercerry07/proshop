@@ -24,3 +24,9 @@ export let addtocart = (id,qty)=>async(dispatch, getState)=>{
     console.log(err)     
   }
 }
+export let removefromcart = (id)=>async(dispatch, getState)=>{
+     dispatch({type:'CART_REMOVE_ITEM', payload:id} )
+
+     localStorage.setItem('cartitem', JSON.stringify(getState().cart.cartitem))
+
+}

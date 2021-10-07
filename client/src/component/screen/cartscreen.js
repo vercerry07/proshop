@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
 import Message from '../message'
 import {Row, Col, ListGroup, Image, Form, Button, Card} from 'react-bootstrap'
-import {addtocart} from '../../action/cartaction'
+import {addtocart, removefromcart} from '../../action/cartaction'
 const Cartscreen = ({match, location, history}) => {    
     let productid = match.params.id
     
@@ -25,22 +25,23 @@ const Cartscreen = ({match, location, history}) => {
     
     }, [dispatch, productid, qty])
     let {cartitem} = cart
-    let removefromcart = (id)=>{
+    let removefromcarrt = (id)=>{
      
-        
+     dispatch(removefromcart(id))   
     }
     let checkout = ()=>{
       
       history.push('/login?redirect=shipping')  
     }
-
     return (
+
+
 
 <div>
     
-    <Row>
-        
+    <Row>        
     <Col md={8}> 
+    
     <h2 style={{marginBottom:'2rem'}}>shopping cart</h2>
     {cartitem.length === 0 ? <Message>your cart is empty <Link to='/'> Go back</Link></Message> : 
     <ListGroup variant='flush'>
@@ -71,7 +72,7 @@ const Cartscreen = ({match, location, history}) => {
         </Form.Control>    
         </Col>
         <Col md={2}>
-        <Button type='button' variant='light' onClick={()=>removefromcart(item.product)}><i className='fas fa-trash'></i> </Button>    
+        <Button type='button' variant='light' onClick={()=>removefromcarrt(item.product)}><i className='fas fa-trash'></i> </Button>    
         </Col>
          </Row>
         </ListGroup.Item>
