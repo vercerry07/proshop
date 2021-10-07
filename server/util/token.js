@@ -2,7 +2,7 @@ let jwt = require('jsonwebtoken')
 let generatetoken = (id)=>{
 
 
-     return jwt.sign({ id}, 'abc123', {
+     return jwt.sign({ id}, process.env.jwtkey, {
          expiresIn: '1h'
      })    
 }
