@@ -18,7 +18,6 @@ userroute.post('/login',asynchandler( async(req,res)=>{
  
  
  
- 
   if(user && (await user.matchpassword(password))){
     
    res.json({
@@ -38,6 +37,7 @@ else {
   throw new Error('wrong credential')
 }
 }))
+
 
 
 userroute.get('/profile', protect,async(req,res)=>{
