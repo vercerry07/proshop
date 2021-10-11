@@ -99,5 +99,34 @@ export let userdetail = (id)=> async(dispatch, getState)=>{
 
 
 
+}
 
+
+export let updateprofile = (user)=> async(dispatch, getState)=>{
+  try {
+    dispatch({type:'USER_PROFILE_REQUEST'}) 
+     
+    let {userlogin: { userinfo}} = getState() 
+
+     let config = {
+       headers: {
+           'Content-Type':'application/json',
+           Authorization: `Bearer ${userinfo.token}`
+       }  
+      }
+    
+    
+    
+    
+    
+    
+    
+      let {data} = await axios.put(`/api/user/profile`,user, config)
+     dispatch({type:'USER_PROFILE_SUCCESS', payload:data})
+  } catch (err) {      
+      dispatch({type:'USER_PROFILE_FAIL', payload:err.responce && err.responce.data.message ? 
+      err.responce.data.message : err.message
+     
+    })
+  }  
 }

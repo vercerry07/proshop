@@ -5,7 +5,7 @@ import {Row ,Col, Form, Button} from 'react-bootstrap'
 import {useDispatch, useSelector} from 'react-redux'
 import Message from '../message'
 import Loader from '../loader'
-import { userdetail} from '../../action/useraction'
+import { userdetail, updateprofile} from '../../action/useraction'
 const Profilescreen = ({location, history}) => { 
     const [email, setemail] = useState('')    
     
@@ -53,19 +53,22 @@ const Profilescreen = ({location, history}) => {
    let handlesubmit = (e)=>{
    
 
+
     e.preventDefault()
-    if(password !== cpassword){
+    if(password !== cpassword){  
     
-        setmessage('entered password do not match')
+      setmessage('entered password do not match')
 
     // return <Message variant='primary'>{message}</Message>     
     } 
-    else if(!name || !email || !password || !cpassword){
-      setmessage('please enter the required field')  
+    // else if(!name || !email || !password || !cpassword){
+    //   setmessage('please enter the required field')  
   
-    }
+    // }
     else {
-    // dispatch(userregister(name, email, password))
+    
+      dispatch(updateprofile({id:user._id, name, email, password}))
+      alert('user updated')
     } 
 
 } 
