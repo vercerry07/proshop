@@ -8,8 +8,10 @@ import {BrowserRouter, Route} from 'react-router-dom'
 import Productscreen from './component/screen/productscreen';
 import Cartscreen from './component/screen/cartscreen';
 import Loginscreen from './component/screen/loginscreen';
+
 import Registerscreen from './component/screen/registerscreen';
 
+import Profilescreen from './component/screen/profilescreen';
 function App() {    
 
   return (
@@ -29,6 +31,8 @@ function App() {
   <Route path='/product/:id' component={Productscreen}></Route>  
  
   <Route path='/cart/:id?' component={Cartscreen}></Route>  
+  <Route path='/profile' component={Profilescreen}></Route>  
+  
   {/* <Mainscreen /> */}
 </Container>
   </main>  

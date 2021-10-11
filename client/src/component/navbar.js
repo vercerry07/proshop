@@ -36,7 +36,7 @@ const Navbarr = () => {
         {userinfo ? (
         <NavDropdown title={userinfo.name} id='username'> 
         
-        <NavDropdown.Item>profile</NavDropdown.Item>
+        <LinkContainer to='/profile'><NavDropdown.Item> profile </NavDropdown.Item></LinkContainer>
         <NavDropdown.Item onClick={logouthandler}>logout</NavDropdown.Item>
         </NavDropdown>  
         

@@ -39,7 +39,6 @@ else {
 }))
 
 
-
 userroute.get('/profile', protect,async(req,res)=>{
 
     
@@ -61,10 +60,41 @@ userroute.get('/profile', protect,async(req,res)=>{
     res.status(401)
     throw new Error('user not found')
   }
-  res.send('hello')     
+
+  // res.send('hello')     
 })
 
 
+userroute.put('/profile', protect,async(req,res)=>{
+  
+  let user = await User.findById(req.user._id) 
+  if(user){
+    user.name = req.body.name || user.name
+    user.email = req.body.email || user.email
+    if(req.body.password){
+      user.password = req.body.password
+    }     
+
+    let updateduser = await user.save() 
+    
+    res.json({
+      _id:updateduser._id, 
+      name:updateduser.name,
+      email:updateduser.email,
+      isAdmin:updateduser.isAdmin,
+      token: generatetoken(updateduser._id)   
+    })
+  }
+  
+
+  else {
+
+    res.status(401)
+    throw new Error('user not found')
+  }
+
+       
+})
 
 userroute.post('/', asynchandler( async(req,res)=>{
 
@@ -75,29 +105,38 @@ userroute.post('/', asynchandler( async(req,res)=>{
         let ruser = await User({
          name,
          email,
+
          password:pwd
         })
-   
+      
+
+      
       if(ruser){
        res.status(201).json({
         _id:ruser._id, 
+      
+      
+      
+      
         name:ruser.name,
+      
         email:ruser.email,
         isAdmin:ruser.isAdmin,
         token: generatetoken(ruser._id)
        }) 
-      
-      
       }
       else {
+        
         res.status(400)
         throw new Error('user can not be saved')
       } 
-} 
+
+    } 
 else {
-  // res.status(400).json({ message:'user exits'})
-  throw new Error('user exists')
-  
+  throw new Error('user exists') 
 }      
+
+
 }))
+
 module.exports = userroute
