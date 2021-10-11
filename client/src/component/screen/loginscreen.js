@@ -41,30 +41,30 @@ return (
    {loading && <Loader /> }
     <h2>Sign in</h2>
     
+
+
     <Form onSubmit={handlesubmit}>
     <Form.Group controlId='email'>
      <Form.Label>Email address</Form.Label>
+    
      <Form.Control type='email' value={email} placeholder='enter email' onChange={(e)=> setemail(e.target.value)}></Form.Control>     
      </Form.Group>    
      <Form.Group controlId='password'>
      
      <Form.Label>Password</Form.Label>
+    
+    
      <Form.Control type='password' value={password} placeholder='enter password' onChange={(e)=> setpassword(e.target.value)}></Form.Control>     
      </Form.Group>
     
     <Button type='submit' variant='primary'>sign in</Button>
     </Form>
     <Row>
-     <Col> new customer? <Link to={redirect ? `/register?redirect=${redirect}`: '/register'}>register</Link></Col>   
+     <Col> new customer? <Link to={redirect ? `/signup?redirect=${redirect}`: '/signup'}>register</Link></Col>   
     </Row>
 </Formcontainer>
-     
-
-
-        
+         
  )
-
 }
-
 
 export default Loginscreen

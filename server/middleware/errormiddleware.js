@@ -18,4 +18,4 @@ let errorhandler = (err, req, res, next)=>{
 
 
 
-module.exports = errorhandler
+module.exports =  {errorhandler, notfound}

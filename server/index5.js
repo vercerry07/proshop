@@ -6,7 +6,7 @@ let mongoose = require('mongoose')
 let productroute = require('./route/productroute')
 let cors = require('cors')
 const userroute = require('./route/userroute')
-let errorhandler = require('./middleware/errormiddleware')
+let {errorhandler} = require('./middleware/errormiddleware')
 let app = express()
 
 app.use(cors())
@@ -22,9 +22,11 @@ mongoose.connect(process.env.mongourl).then(()=>{
 
  })
 app.use(errorhandler)
+
 app.use(express.json()) 
 app.use('/api/products', productroute)
 app.use('/api/user', userroute)
+
 app.get('/',(req,res)=>{    
  
     res.send('hello')

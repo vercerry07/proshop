@@ -66,7 +66,7 @@ userroute.get('/profile', protect,async(req,res)=>{
 
 
 
-userroute.post('/', async(req,res)=>{
+userroute.post('/', asynchandler( async(req,res)=>{
 
   let { name, email ,password} = req.body  
   let exuser = await User.findOne({email})
@@ -80,11 +80,11 @@ userroute.post('/', async(req,res)=>{
    
       if(ruser){
        res.status(201).json({
-        _id:user._id, 
-        name:user.name,
-        email:user.email,
-        isAdmin:user.isAdmin,
-        token: generatetoken(user._id)
+        _id:ruser._id, 
+        name:ruser.name,
+        email:ruser.email,
+        isAdmin:ruser.isAdmin,
+        token: generatetoken(ruser._id)
        }) 
       
       
@@ -92,14 +92,12 @@ userroute.post('/', async(req,res)=>{
       else {
         res.status(400)
         throw new Error('user can not be saved')
-      }
-    
+      } 
 } 
-
 else {
-  res.status(400)
+  // res.status(400).json({ message:'user exits'})
   throw new Error('user exists')
   
 }      
-})
+}))
 module.exports = userroute

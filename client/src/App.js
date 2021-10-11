@@ -8,6 +8,7 @@ import {BrowserRouter, Route} from 'react-router-dom'
 import Productscreen from './component/screen/productscreen';
 import Cartscreen from './component/screen/cartscreen';
 import Loginscreen from './component/screen/loginscreen';
+import Registerscreen from './component/screen/registerscreen';
 
 function App() {    
 
@@ -17,14 +18,14 @@ function App() {
    
    
    
-   
    <Navbarr /> 
-  
+ 
   <main className='py-2'>     
   <Container>
-
   <Route path='/' component={Mainscreen} exact></Route>   
   <Route path='/signin' component={Loginscreen} ></Route>   
+  <Route path='/signup' component={Registerscreen} ></Route>   
+  
   <Route path='/product/:id' component={Productscreen}></Route>  
  
   <Route path='/cart/:id?' component={Cartscreen}></Route>  
