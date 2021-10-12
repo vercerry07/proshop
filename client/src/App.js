@@ -12,16 +12,15 @@ import Loginscreen from './component/screen/loginscreen';
 import Registerscreen from './component/screen/registerscreen';
 
 import Profilescreen from './component/screen/profilescreen';
+import Shippingscreen from './component/screen/shippingscreen';
 function App() {    
+
 
   return (
 <div className="App">
  <BrowserRouter>  
-   
-   
-   
+    
    <Navbarr /> 
- 
   <main className='py-2'>     
   <Container>
   <Route path='/' component={Mainscreen} exact></Route>   
@@ -29,22 +28,23 @@ function App() {
   <Route path='/signup' component={Registerscreen} ></Route>   
   
   <Route path='/product/:id' component={Productscreen}></Route>  
- 
   <Route path='/cart/:id?' component={Cartscreen}></Route>  
   <Route path='/profile' component={Profilescreen}></Route>  
   
+  <Route path='/shipping' component={Shippingscreen} exact></Route>   
   {/* <Mainscreen /> */}
 </Container>
   </main>  
-  
+
+
   <Footer />  
  </BrowserRouter> 
     </div>
-  
+
+
+
   );
-
 }
-
 
 
 export default App;

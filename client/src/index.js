@@ -34,23 +34,25 @@ let reducer = combineReducers({
 let cartitemfromstorage = localStorage.getItem('cartitem') ? JSON.parse(localStorage.getItem('cartitem')) : []
 
 let userinfofromstorage = localStorage.getItem('userinfo') ? JSON.parse(localStorage.getItem('userinfo')) : null
-
+let shippingfromstorage = localStorage.getItem('shippingaddress') ? JSON.parse(localStorage.getItem('shippingaddress')) : {}
 let intialstate = {
-  cart:{ cartitem:cartitemfromstorage},
-  userlogin:{ userinfo:userinfofromstorage}
+  
+  cart:{ cartitem:cartitemfromstorage, shipping:shippingfromstorage},
+  userlogin:{ userinfo:userinfofromstorage},
 }
+
+
 let middleware = [thunk]
 let store = createStore(reducer, intialstate, composeWithDevTools(applyMiddleware(...middleware)))
-
 ReactDOM.render(
+
 <React.StrictMode>    
     <Provider store={store}> 
-    <App />  
-    
+    <App />      
     </Provider>
-  
   </React.StrictMode>,
   
+
   document.getElementById('root')
  
 

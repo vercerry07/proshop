@@ -1,4 +1,4 @@
-export let cartreducer = (state = { cartitem:[]},action)=>{
+export let cartreducer = (state = { cartitem:[], shippingaddress: {}},action)=>{
   switch (action.type) {
       
     
@@ -28,5 +28,15 @@ export let cartreducer = (state = { cartitem:[]},action)=>{
       }  
         default:
           return state
-     }  
+   
+    case 'CART_SAVE_SHIPPING':
+        
+      return {
+          ...state,
+              shippingaddress: action.payload
+            }  
+   
+
+        }  
+     
 }

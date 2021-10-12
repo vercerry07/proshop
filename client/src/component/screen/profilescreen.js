@@ -119,10 +119,9 @@ return (
     </Row> */}
 
 
-</div>
 
+</div>
 )
 
 }
-
 export default Profilescreen

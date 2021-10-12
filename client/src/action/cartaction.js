@@ -30,3 +30,11 @@ export let removefromcart = (id)=>async(dispatch, getState)=>{
      localStorage.setItem('cartitem', JSON.stringify(getState().cart.cartitem))
 
 }
+
+export let saveshippingaddress = (data)=>async(dispatch)=>{
+  dispatch({type:'CART_SAVE_SHIPPING', payload:data} )
+  localStorage.setItem('shippingaddress', JSON.stringify(data))
+
+
+  
+}

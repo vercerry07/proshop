@@ -31,7 +31,9 @@ const Cartscreen = ({match, location, history}) => {
     }
     let checkout = ()=>{
       
-      history.push('/login?redirect=shipping')  
+    //   login auth
+        history.push('/signin?redirect=shipping')  
+      
     }
     return (
 
