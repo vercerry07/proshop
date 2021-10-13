@@ -38,3 +38,13 @@ export let saveshippingaddress = (data)=>async(dispatch)=>{
 
   
 }
+
+export let savepaymentmethod = (data)=>async(dispatch)=>{
+  
+  
+  
+  dispatch({type:'CART_SAVE_PAYMENT', payload:data} )
+  localStorage.setItem('paymentmethod', JSON.stringify(data))
+
+
+}

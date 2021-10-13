@@ -36,7 +36,15 @@ export let cartreducer = (state = { cartitem:[], shippingaddress: {}},action)=>{
               shippingaddress: action.payload
             }  
    
-
+    
+    case 'CART_SAVE_PAYMENT':
+        
+      return {
+                  ...state,
+                      paymentmethod: action.payload
+                    }  
+                   
         }  
-     
+    
+           
 }
