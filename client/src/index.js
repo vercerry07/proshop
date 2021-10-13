@@ -18,25 +18,26 @@ import {userloginreducer, userregisterreducer, userdetailreducer, userupdateprof
 
 
 
+import {orderreducer} from './reducer/orderreducer'
+
 let reducer = combineReducers({
-    
   productlist:Productlistreducer,    
   productdetail:Productdetailreducer,
-
   cart:cartreducer, 
   userlogin:userloginreducer, 
   userregister:userregisterreducer,
   
   userdetail:userdetailreducer,
-  userupdateprofile:userupdateprofilereducer
+  userupdateprofile:userupdateprofilereducer,
+  order:orderreducer
+
 })
 
 let cartitemfromstorage = localStorage.getItem('cartitem') ? JSON.parse(localStorage.getItem('cartitem')) : []
-
 let userinfofromstorage = localStorage.getItem('userinfo') ? JSON.parse(localStorage.getItem('userinfo')) : null
 let shippingfromstorage = localStorage.getItem('shippingaddress') ? JSON.parse(localStorage.getItem('shippingaddress')) : {}
-let intialstate = {
-  
+
+let intialstate = {  
   cart:{ cartitem:cartitemfromstorage, shipping:shippingfromstorage},
   userlogin:{ userinfo:userinfofromstorage},
 }

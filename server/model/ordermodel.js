@@ -28,7 +28,7 @@ let orderchema = mongoose.Schema({
         address:{type:String, required:true},
         
         city:{type:String, required:true},
-        postalCode:{type:String, required:true},
+        postalcode:{type:String, required:true},
         country:{type:String, required:true},
 
     },
@@ -65,24 +65,24 @@ let orderchema = mongoose.Schema({
      isPaid:{
     
         type:Boolean,
-        required:true,
+      //   required:true,
         
         default:false
      },
      paidAt:{
         type:Date,
-        required:true 
+      //   required:true 
      },
      isDelivered:{
        
         type:Boolean,
-        required:true,
+      //   required:true,
         
         default:false 
      },
      deliveredAt:{
         type:Date,
-        required:true 
+      //   required:true 
      }, 
 }, 
 

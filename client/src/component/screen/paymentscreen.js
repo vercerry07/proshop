@@ -23,7 +23,7 @@ const Paymentscreen = ({history}) => {
         history.push('/placeorder')
     } 
     
-    return (
+    return ( 
         <Formcontainer>   
 
       
@@ -37,7 +37,7 @@ const Paymentscreen = ({history}) => {
      <Form.Label as='legend'>select method</Form.Label>    
      <Col>
         
-     <Form.Check type='radio' label='paypal or credit card' id='paypal' name='paymentmethod' value='paypal' onChange={(e)=> setpaymentmethod(e.target.value)}></Form.Check>  
+     <Form.Check type='radio' label='paypal or credit card' id='paypal' name='paymentmethod' value='paypal' onChange={(e)=> setpaymentmethod(e.target.value)} > </Form.Check>  
      
        </Col>
     </Form.Group>

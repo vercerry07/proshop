@@ -80,7 +80,7 @@ export let userdetail = (id)=> async(dispatch, getState)=>{
            'Content-Type':'application/json',
            Authorization: `Bearer ${userinfo.token}`
        }  
-     
+      
       }
      let {data} = await axios.get(`/api/user/${id}`, config)
      dispatch({type:'USER_DETAIL_SUCCESS', payload:data})
