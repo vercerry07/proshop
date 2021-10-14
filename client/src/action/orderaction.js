@@ -29,7 +29,7 @@ export let createorder = (order)=> async(dispatch, getState)=>{
 }  
 
 
-export let orderdetail = (id)=> async(dispatch, getState)=>{
+export let getorderdetail = (id)=> async(dispatch, getState)=>{
  
 
     try {
@@ -37,14 +37,12 @@ export let orderdetail = (id)=> async(dispatch, getState)=>{
        let { userlogin: {userinfo}, } = getState()
        let config = {
          headers: {
-             'Content-Type':'application/json',
-
              Authorization: `Bearer ${userinfo.token}`
          }  
        
         }
   
-       let {data} = await axios.get(`/api/order/${id}`, config)
+       let {data} = await axios.get(`/api/order/${id}`,config)
        dispatch({type:'ORDER_DETAIL_SUCCESS', payload:data})
 
     } catch (err) {      
@@ -54,4 +52,6 @@ export let orderdetail = (id)=> async(dispatch, getState)=>{
         err.responce.data.message : err.message
     })
     }
+
+
 }  

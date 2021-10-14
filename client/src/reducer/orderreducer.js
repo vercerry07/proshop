@@ -37,12 +37,8 @@ export let orderreducer = (state = {},action)=>{
 
 
 
-export let orderdetailreducer = (state = { orderitem:[], shippingAddress: {}},action)=>{
+export let orderdetailreducer = (state = {loading:true , orderitem:[], shippingaddress: {}},action)=>{
     switch (action.type) {
-        
-
-
-
        case 'ORDER_DETAIL_REQUEST':
             return {
                 ...state,
@@ -53,7 +49,6 @@ export let orderdetailreducer = (state = { orderitem:[], shippingAddress: {}},ac
                    
                    loading:false,
                    
-                  
                    order:action.payload
                }
                   
@@ -68,5 +63,6 @@ export let orderdetailreducer = (state = { orderitem:[], shippingAddress: {}},ac
             return state
  
         }
+
 
 }
