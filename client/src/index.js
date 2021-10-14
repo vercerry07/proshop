@@ -18,7 +18,7 @@ import {userloginreducer, userregisterreducer, userdetailreducer, userupdateprof
 
 
 
-import {orderreducer} from './reducer/orderreducer'
+import {orderreducer, orderdetailreducer} from './reducer/orderreducer'
 
 let reducer = combineReducers({
   productlist:Productlistreducer,    
@@ -29,8 +29,9 @@ let reducer = combineReducers({
   
   userdetail:userdetailreducer,
   userupdateprofile:userupdateprofilereducer,
-  order:orderreducer
+  order:orderreducer,
 
+  orderdetail:orderdetailreducer
 })
 
 let cartitemfromstorage = localStorage.getItem('cartitem') ? JSON.parse(localStorage.getItem('cartitem')) : []
@@ -41,7 +42,6 @@ let intialstate = {
   cart:{ cartitem:cartitemfromstorage, shipping:shippingfromstorage},
   userlogin:{ userinfo:userinfofromstorage},
 }
-
 
 let middleware = [thunk]
 let store = createStore(reducer, intialstate, composeWithDevTools(applyMiddleware(...middleware)))
