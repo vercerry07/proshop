@@ -29,6 +29,12 @@ app.use('/api/user', userroute)
 
 app.use('/api/order', orderroute)
 
+app.use('/api/config/paypal', (req,res)=>{
+ 
+    res.send(process.env.paypalclient)
+})
+
+
 app.get('/',(req,res)=>{    
  
     res.send('hello')

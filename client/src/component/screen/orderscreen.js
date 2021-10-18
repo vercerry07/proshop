@@ -1,34 +1,84 @@
-import React, {useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 
 
 import {Link} from 'react-router-dom'
 import Message from '../message'
 import Loader from '../loader'
-import {Row, Col, ListGroup, Image, Button, Card} from 'react-bootstrap'
-import {getorderdetail} from '../../action/orderaction'
-const Orderscreen = ({match}) => {    
+import {Row, Col, ListGroup, Image, Card} from 'react-bootstrap'
+import {getorderdetail, payorder} from '../../action/orderaction'
+import axios from 'axios'
 
+import {PayPalButton} from 'react-paypal-button-v2'
+
+const Orderscreen = ({match}) => {    
     let orderid = match.params.id
+    const [sdkready, setsdkready] = useState(false)
+
+
+
 
     const dispatch = useDispatch()
+        
     let orderdetail = useSelector(state => state.orderdetail)        
-        let {loading , order, error} = orderdetail
-        
-        
+    let {loading , order, error} = orderdetail   
+    let orderpay = useSelector(state => state.orderpay)        
+    
+    let {loading:loadingpay , success:successpay} = orderpay  
         if(!loading){
-            order.itemPrice = order.orderItems.reduce((acc, item)=> acc + item.price * item.qty, 0)
+       
+         order.itemPrice = order.orderItems.reduce((acc, item)=> acc + item.price * item.qty, 0) 
+        }      
+     
+        useEffect(() => {  
+         let addpaypalscript = async ()=>{
+          let { data: clientid} = await axios.get('/api/config/paypal')
+         let script = document.createElement('script')
+         
+         script.type = 'text/javascript'
+         script.src = `https://www.paypal.com/sdk/js?client-id=${clientid}`
+         script.async = true
+         script.onload = ()=> {
+             setsdkready(true)
+         
+         }
+         document.body.appendChild(script)   
+             console.log(clientid)
+         }
+         // addpaypalscript()
         
-
-        }
-                
-        useEffect(() => {
+         if(!order || successpay){
+            
+            dispatch({type:'ORDER_PAY_RESET'})
            
-         dispatch(getorderdetail(orderid))
-        }, [])
-        
+           dispatch(getorderdetail(orderid))
+                     
+         } 
+         else if(!order.isPaid){
+          if(!window.paypal){
+          
+          
+            addpaypalscript()
+          }
+
+         else {
+          setsdkready(true)   
+         } 
+         }
+        }, [dispatch, orderid, successpay, order])
+
+
+        let successPayment = (paymentresult)=>{
+ 
+        console.log(paymentresult)
+        dispatch(payorder(orderid, paymentresult))
+        } 
+
         return (
         loading ? <Loader /> : error ? <Message >{error}</Message> : 
+       
+       
+       
        <>
        
        <h2>order {order._id}</h2>
@@ -74,13 +124,13 @@ const Orderscreen = ({match}) => {
         <Message variant='success'> not paid</Message>
         }
         </ListGroup.Item>  
-
-
         <ListGroup.Item>
         <h2>order item</h2>
+
+
         {order.orderItems.length === 0 ? <Message>your cart is empty</Message>: 
         
-
+        
 
         (
             <ListGroup>
@@ -157,17 +207,22 @@ const Orderscreen = ({match}) => {
               <Col>{order.totalPrice}</Col>           
                 </Row> 
              </ListGroup.Item>
-             {/* <ListGroup.Item>
-
-
-
-            <Button type='button' classname='btn-block' disabled={cart.cartitem === 0} onClick={placeorder}>place order</Button> 
-             </ListGroup.Item> */}
+             {!order.isPaid && (
+                <ListGroup.Item>
+                 {loadingpay && <Loader/>}
+               
+                 {!sdkready ? <Loader /> : 
+        <PayPalButton amount={order.totalPrice} onSuccess={successPayment}/>
+                                      
+                 }  
+                </ListGroup.Item>
+             )}
             </ListGroup>
         </Card>
         </Col> 
       
-      
+         {/* <button>pay</button> */}
+              
         </Row>    
        </> 
         

@@ -18,7 +18,7 @@ import {userloginreducer, userregisterreducer, userdetailreducer, userupdateprof
 
 
 
-import {orderreducer, orderdetailreducer} from './reducer/orderreducer'
+import {orderreducer, orderdetailreducer, orderpayreducer} from './reducer/orderreducer'
 
 let reducer = combineReducers({
   productlist:Productlistreducer,    
@@ -31,7 +31,8 @@ let reducer = combineReducers({
   userupdateprofile:userupdateprofilereducer,
   order:orderreducer,
 
-  orderdetail:orderdetailreducer
+  orderdetail:orderdetailreducer,
+  orderpay:orderpayreducer
 })
 
 let cartitemfromstorage = localStorage.getItem('cartitem') ? JSON.parse(localStorage.getItem('cartitem')) : []

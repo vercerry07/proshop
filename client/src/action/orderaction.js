@@ -54,4 +54,34 @@ export let getorderdetail = (id)=> async(dispatch, getState)=>{
     }
 
 
+}
+
+
+export let payorder = (orderid, paymentresult)=> async(dispatch, getState)=>{
+ 
+
+    try {
+       dispatch({type:'ORDER_PAY_REQUEST'})    
+       let { userlogin: {userinfo}, } = getState()
+       let config = {
+         headers: {
+             'Content-Type':'application/json',
+            
+             Authorization: `Bearer ${userinfo.token}`
+         }  
+       
+        }
+  
+       let {data} = await axios.put(`/api/order/${orderid}/pay`,paymentresult, config)
+       dispatch({type:'ORDER_PAY_SUCCESS', payload:data})
+
+    } catch (err) {      
+        
+        dispatch({type:'ORDER_PAY_FAIL', payload:err.responce && err.responce.data.message ? 
+       
+        err.responce.data.message : err.message
+    })
+    }
+
+
 }  
