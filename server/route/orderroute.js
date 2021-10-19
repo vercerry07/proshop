@@ -3,7 +3,7 @@ let orderroute = express.Router()
 
 
 let Order = require('../model/ordermodel')
-// let asynchandler = require('express-async-handler')
+let asynchandler = require('express-async-handler')
 let Product = require('../model/product')
 let Protect = require('../middleware/authmiddleware')
 orderroute.post('/', Protect,async(req,res)=>{
@@ -89,4 +89,14 @@ orderroute.put('/:id/pay', Protect,async(req,res)=>{
             throw new Error('order not found')
         }
         })    
-module.exports = orderroute
+// orderroute.get('/userorder', Protect,asynchandler(async(req,res)=>{
+//        try {
+//         const orders = await Order.findById(req.user._id)
+//         res.json(orders)
+//                 }        
+//                 catch (error) {
+//                 console.log(error)           
+//                 } 
+//             }     
+        
+module.exports = orderroute 

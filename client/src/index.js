@@ -18,7 +18,7 @@ import {userloginreducer, userregisterreducer, userdetailreducer, userupdateprof
 
 
 
-import {orderreducer, orderdetailreducer, orderpayreducer} from './reducer/orderreducer'
+import {orderreducer, orderdetailreducer, orderpayreducer, orderlistreducer} from './reducer/orderreducer'
 
 let reducer = combineReducers({
   productlist:Productlistreducer,    
@@ -32,12 +32,15 @@ let reducer = combineReducers({
   order:orderreducer,
 
   orderdetail:orderdetailreducer,
-  orderpay:orderpayreducer
+  orderpay:orderpayreducer,
+  orderlist:orderlistreducer
 })
+
 
 let cartitemfromstorage = localStorage.getItem('cartitem') ? JSON.parse(localStorage.getItem('cartitem')) : []
 let userinfofromstorage = localStorage.getItem('userinfo') ? JSON.parse(localStorage.getItem('userinfo')) : null
 let shippingfromstorage = localStorage.getItem('shippingaddress') ? JSON.parse(localStorage.getItem('shippingaddress')) : {}
+
 
 let intialstate = {  
   cart:{ cartitem:cartitemfromstorage, shipping:shippingfromstorage},
@@ -47,15 +50,15 @@ let intialstate = {
 let middleware = [thunk]
 let store = createStore(reducer, intialstate, composeWithDevTools(applyMiddleware(...middleware)))
 ReactDOM.render(
-
 <React.StrictMode>    
     <Provider store={store}> 
+    
+    
     <App />      
     </Provider>
+  
   </React.StrictMode>,
   
-
   document.getElementById('root')
  
-
  );

@@ -29,19 +29,19 @@ const Orderscreen = ({match}) => {
        
          order.itemPrice = order.orderItems.reduce((acc, item)=> acc + item.price * item.qty, 0) 
         }      
-     
         useEffect(() => {  
+         
          let addpaypalscript = async ()=>{
           let { data: clientid} = await axios.get('/api/config/paypal')
          let script = document.createElement('script')
-         
          script.type = 'text/javascript'
          script.src = `https://www.paypal.com/sdk/js?client-id=${clientid}`
+         
          script.async = true
          script.onload = ()=> {
              setsdkready(true)
-         
          }
+
          document.body.appendChild(script)   
              console.log(clientid)
          }
@@ -67,7 +67,6 @@ const Orderscreen = ({match}) => {
          }
         }, [dispatch, orderid, successpay, order])
 
-
         let successPayment = (paymentresult)=>{
  
         console.log(paymentresult)
@@ -75,7 +74,8 @@ const Orderscreen = ({match}) => {
         } 
 
         return (
-        loading ? <Loader /> : error ? <Message >{error}</Message> : 
+
+         loading ? <Loader /> : error ? <Message >{error}</Message> : 
        
        
        

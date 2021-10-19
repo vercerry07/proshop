@@ -34,7 +34,7 @@ userschema.pre('save', async function (next){
   if(!this.isModified('password')){
      next()     
   }
-  let salt = await bcrypt.hash(this.password, 10)
+  let salt = await bcrypt.genSalt(10)
   
 
   this.password = await bcrypt.hash(this.password, salt)

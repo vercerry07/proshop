@@ -18,8 +18,9 @@ userroute.post('/login',asynchandler( async(req,res)=>{
  
  
  
-  if(user && (await user.matchpassword(password))){
-    
+  if(user){
+    if(bcrypt.compare(password, user.password)){
+
    res.json({
     _id:user._id, 
     name:user.name,
@@ -28,17 +29,16 @@ userroute.post('/login',asynchandler( async(req,res)=>{
     token: generatetoken(user._id)
   
   })
-  
+}
+    
 } 
 
 else {
-  
   res.status(401)
   throw new Error('wrong credential')
+
 }
 }))
-
-
 userroute.get('/profile', protect,async(req,res)=>{
 
     
@@ -109,7 +109,7 @@ userroute.post('/', asynchandler( async(req,res)=>{
          password:pwd
         })
       
-
+        await ruser.save()
       
       if(ruser){
        res.status(201).json({
