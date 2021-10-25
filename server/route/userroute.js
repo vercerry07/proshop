@@ -7,11 +7,11 @@ let asynchandler = require('express-async-handler')
 let generatetoken = require('../util/token')
 let protect = require('../middleware/authmiddleware')
 let bcrypt = require('bcryptjs')
-userroute.get('/',(req,res)=>{
+// userroute.get('/',(req,res)=>{
 
-  res.send('hello')
+let admincheck = require('../middleware/adminmiddleware')
 
-})
+// })
 userroute.post('/login',asynchandler( async(req,res)=>{
   let {email, password} = req.body  
   let user = await User.findOne({email})
@@ -138,5 +138,33 @@ else {
 
 
 }))
+
+userroute.get('/', protect, admincheck,async(req,res)=>{
+
+    
+  
+  let users = await User.find({}) 
+  res.json(users)
+  // res.send('hello')     
+
+})
+
+userroute.delete('/:id', protect, admincheck,async(req,res)=>{
+  let userid = req.params.id
+  let user = await User.findById(userid) 
+ 
+ 
+  if(user){
+     await user.remove()
+     
+     res.json({ message:'user removed'})
+  }
+  else {
+    res.status(404)
+    throw new Error('user not found')
+  }
+
+
+})
 
 module.exports = userroute

@@ -21,12 +21,14 @@ import Paymentscreen from './component/screen/paymentscreen'
 import Placeorderscreen from './component/screen/placeorderscreen';
 
 import Orderscreen from './component/screen/orderscreen';
+import Userlistscreen from './component/screen/userlistscreen';
+
 function App() {    
   return (
 <div className="App">
+ 
  <BrowserRouter>  
    <Navbarr /> 
-
   <main className='py-2'>     
 
   <Container>
@@ -44,9 +46,11 @@ function App() {
 
   
   <Route path='/order/:id' component={Orderscreen} ></Route>   
-  
+  <Route path='/userlist' component={Userlistscreen} ></Route>   
   {/* <Mainscreen /> */}
+
 </Container>
+
   </main>  
   <Footer />  
  

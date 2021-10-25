@@ -33,7 +33,7 @@ const Navbarr = () => {
 
         <Nav.Link><i className='fas fa-shopping-cart'></i> cart</Nav.Link>
         </LinkContainer>
-        {userinfo ? (
+        {userinfo && !userinfo.isAdmin ? (
         <NavDropdown title={userinfo.name} id='username'> 
         
         <LinkContainer to='/profile'><NavDropdown.Item> profile </NavDropdown.Item></LinkContainer>
@@ -45,7 +45,17 @@ const Navbarr = () => {
            <Nav.Link><i className='fas fa-user'></i> Sign in</Nav.Link>
            </LinkContainer>  
         )}
-       
+        {userinfo && userinfo.isAdmin && (
+
+<NavDropdown title={userinfo.name} id='adminmenu'> 
+        
+<LinkContainer to='/userlist'><NavDropdown.Item> users </NavDropdown.Item></LinkContainer>
+<LinkContainer to='/productlist'><NavDropdown.Item> product </NavDropdown.Item></LinkContainer>
+<LinkContainer to='/orderlist'><NavDropdown.Item> orders </NavDropdown.Item></LinkContainer>
+
+<NavDropdown.Item onClick={logouthandler}>logout</NavDropdown.Item>
+</NavDropdown>  
+        )}
 
       </Nav>
     </Navbar.Collapse>
@@ -56,6 +66,5 @@ const Navbarr = () => {
         </div>
     )
 }
-
 
 export default Navbarr

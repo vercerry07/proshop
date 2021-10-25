@@ -21,7 +21,7 @@ export let userloginreducer = (state= {}, action)=>{
         }  
   
     }
-    export let userregisterreducer = (state= {}, action)=>{
+export let userregisterreducer = (state= {}, action)=>{
         switch (action.type) {   
           case 'USER_REGISTER_REQUEST':
               return { loading:true}  
@@ -82,3 +82,45 @@ export let userloginreducer = (state= {}, action)=>{
                          return state   
                     }  
                 }      
+    export let userlistreducer = (state= { users:[]}, action)=>{
+               
+                    switch (action.type) {   
+                              case 'USER_LIST_REQUEST':
+                                  return { loading:true}  
+                              case  'USER_LIST_SUCCESS':
+                                  
+                                  return { loading:false ,users: action.payload}  
+                              case 'USER_LIST_FAIL':
+                              return { loading:false, error: action.payload}  
+                                    default:
+                                     return state   
+                                }  
+                    }      
+    
+
+                     
+    export let userdeletereducer = (state= { }, action, getState)=>{
+               
+
+                    switch (action.type) {   
+                                  case 'USER_DELETE_REQUEST':
+                                      return { loading:true}  
+        
+                                  case  'USER_DELETE_SUCCESS':                              
+                                      return { loading:false ,success:true}  
+                                  
+                                  case 'USER_DELETE_FAIL':
+                                
+                                      return { loading:false, error: action.payload}    
+                                  default:
+                                         return state   
+                                  
+                                  
+
+                                  
+                                        
+                                        
+                                        }  
+                                
+                                
+                                    }                    

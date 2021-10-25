@@ -130,3 +130,51 @@ export let updateprofile = (user)=> async(dispatch, getState)=>{
     })
   }  
 }
+
+export let listuser = ()=> async(dispatch, getState)=>{
+  try {
+    dispatch({type:'USER_LIST_REQUEST'}) 
+     
+    let {userlogin: { userinfo}} = getState() 
+
+     let config = {
+       headers: {
+           Authorization: `Bearer ${userinfo.token}`
+       }  
+      
+      
+      }
+      let {data} = await axios.get(`/api/user/`, config)
+     dispatch({type:'USER_LIST_SUCCESS', payload:data})
+
+    } catch (err) {      
+
+      dispatch({type:'USER_LIST_FAIL', payload:err.responce && err.responce.data.message ? 
+      err.responce.data.message : err.message     
+    })
+  }  
+
+}
+
+
+export let userdelete = (id)=> async(dispatch, getState)=>{
+  try {
+    dispatch({type:'USER_DELETE_REQUEST'}) 
+    let {userlogin: { userinfo}} = getState() 
+     let config = {
+       headers: {
+       
+        Authorization: `Bearer ${userinfo.token}`
+       }  
+      
+      }
+      let {data} = await axios.delete(`/api/user/${id}`, config)
+     dispatch({type:'USER_DELETE_SUCCESS', payload:data})
+  } catch (err) {      
+      dispatch({type:'USER_DELETE_FAIL', payload:err.responce && err.responce.data.message ? 
+      err.responce.data.message : err.message    
+    })
+  
+  }  
+
+}

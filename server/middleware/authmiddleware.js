@@ -25,7 +25,6 @@ let protect = expresshandler( async(req,res,next)=>{
     res.status(401)
     throw new Error('not authorized') 
   }
-
 }
 
   if(!token){    
@@ -37,6 +36,11 @@ let protect = expresshandler( async(req,res,next)=>{
 
   }
 
+
 })
+
+
+
+
 
 module.exports = protect
