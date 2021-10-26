@@ -38,3 +38,35 @@ catch (err) {
 
 
 }
+
+export let productdelete = (id)=> async(dispatch, getState)=>{
+  try {
+    
+    
+    let {userlogin: { userinfo}} = getState() 
+    let config = {
+      headers: {
+      
+
+       'Content-Type':'application/json',
+       Authorization: `Bearer ${userinfo.token}`
+      }  
+     
+     }
+  dispatch({type:'PRODUCT_DELETE_REQUEST'})
+   await axios.delete(`/api/products/${id}`, config)
+   dispatch({type:'PRODUCT_DELETE_SUCCESS'})
+   } 
+
+   
+catch (err) {    
+  dispatch({type:'PRODUCT_DELETE_FAIL', payload:err.responce && err.responce.data.message ? 
+  err.responce.data.message : err.message
+ })
+
+}  
+
+
+
+
+}

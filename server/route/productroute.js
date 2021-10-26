@@ -6,7 +6,9 @@ let products = require('../data/products')
 let Order = require('../model/ordermodel')
 let asynchandler = require('express-async-handler')
 let Product = require('../model/product')
-let Protect = require('../middleware/authmiddleware')
+let protect = require('../middleware/authmiddleware') 
+let admincheck = require('../middleware/adminmiddleware')
+
 productrouter.get('/',asynchandler (async(req,res)=>{
 
     let product = await Product.find({})
@@ -27,6 +29,22 @@ productrouter.get('/:id', asynchandler( async(req,res)=>{
         })
     }
 
+}))
+
+productrouter.delete('/:id', protect, admincheck, asynchandler( async(req,res)=>{
+ 
+    let product = await Product.findByIdAndDelete(req.params.id)
+       if(product){      
+        res.json({
+            message:'product deleted'
+        })    
+       
+    }
+    else {
+        res.status(404).json({
+            msg:'no product found'
+        })
+    }
 }))
 
 // productrouter.post('/order', Protect,async(req,res)=>{

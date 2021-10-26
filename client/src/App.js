@@ -23,33 +23,38 @@ import Placeorderscreen from './component/screen/placeorderscreen';
 import Orderscreen from './component/screen/orderscreen';
 import Userlistscreen from './component/screen/userlistscreen';
 import Usereditscreen from './component/screen/usereditscreen';
-
+import Productlistscreen from './component/screen/productlistscreen';
 function App() {    
   return (
+
 <div className="App">
  
  <BrowserRouter>  
+
    <Navbarr /> 
 
   <main className='py-2'>     
-
   <Container>  
   <Route path='/' component={Mainscreen} exact></Route>   
+  
   <Route path='/signin' component={Loginscreen} ></Route>   
   
   <Route path='/signup' component={Registerscreen} ></Route>   
   <Route path='/product/:id' component={Productscreen}></Route>  
-  <Route path='/cart/:id?' component={Cartscreen}></Route>  
-
   
+  <Route path='/cart/:id?' component={Cartscreen}></Route>  
   <Route path='/profile' component={Profilescreen}></Route>   
   <Route path='/shipping' component={Shippingscreen} ></Route>   
   <Route path='/payment' component={Paymentscreen} ></Route>   
+ 
   <Route path='/placeorder' component={Placeorderscreen} ></Route>   
   
   <Route path='/order/:id' component={Orderscreen} ></Route>   
   <Route path='/userlist' component={Userlistscreen} ></Route>   
   <Route path='/admin/user/:id/edit' component={Usereditscreen} ></Route>   
+ 
+ 
+  <Route path='/productlist' component={Productlistscreen} ></Route>   
   
   {/* <Mainscreen /> */}
 
