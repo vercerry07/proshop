@@ -29,7 +29,7 @@ const Userlistscreen = ({history}) => {
       
         history.push('/login')
       }
-    }, [dispatch, history, successdelete])
+    }, [dispatch, history, successdelete, userinfo])
    
     let deleteuser= (id)=>{
       if(window.confirm('are you sure')){

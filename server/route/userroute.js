@@ -167,4 +167,48 @@ userroute.delete('/:id', protect, admincheck,async(req,res)=>{
 
 })
 
+userroute.get('/:id', protect, admincheck,async(req,res)=>{
+
+  let id = req.params.id
+  let user = await User.findById(id).select('-password') 
+  if(user){
+    res.json(user)
+  }
+  
+  else {
+   
+    res.status(400)
+    throw new Error('user not found') 
+  } 
+})
+userroute.put('/:id',protect, admincheck, async(req,res)=>{
+  
+  let user = await User.findById(req.params.id) 
+  if(user){
+    
+    
+    user.name = req.body.name || user.name
+    user.email = req.body.email || user.email
+    user.isAdmin = req.body.isAdmin  
+    let updateduser = await user.save()  
+    res.json({
+      _id:updateduser._id, 
+      name:updateduser.name,
+      email:updateduser.email,
+      isAdmin:updateduser.isAdmin,
+      
+    
+    })
+  }
+  
+
+  else {
+    res.status(401)
+    throw new Error('user not found')
+  }
+
+})
+
+
+
 module.exports = userroute

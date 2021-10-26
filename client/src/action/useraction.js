@@ -178,3 +178,29 @@ export let userdelete = (id)=> async(dispatch, getState)=>{
   }  
 
 }
+
+export let userupdate = (user)=> async(dispatch, getState)=>{
+  try {
+    dispatch({type:'USER_UPDATE_REQUEST'}) 
+    let {userlogin: { userinfo}} = getState() 
+     let config = {
+       headers: {
+       
+
+        'Content-Type':'application/json',
+        Authorization: `Bearer ${userinfo.token}`
+       }  
+      
+      }
+      let {data} = await axios.put(`/api/user/${user._id}`,user, config)
+     dispatch({type:'USER_UPDATE_SUCCESS'})
+     dispatch({type:'USER_DETAIL_SUCCESS', payload:data})
+     
+    } catch (err) {      
+      dispatch({type:'USER_UPDATE_FAIL', payload:err.responce && err.responce.data.message ? 
+      err.responce.data.message : err.message    
+    })
+  
+  }  
+
+}
