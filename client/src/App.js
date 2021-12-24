@@ -24,11 +24,11 @@ import Orderscreen from './component/screen/orderscreen';
 import Userlistscreen from './component/screen/userlistscreen';
 import Usereditscreen from './component/screen/usereditscreen';
 import Productlistscreen from './component/screen/productlistscreen';
+import Producteditscreen from './component/screen/producteditscreen';
 function App() {    
   return (
 
 <div className="App">
- 
  <BrowserRouter>  
 
    <Navbarr /> 
@@ -53,8 +53,9 @@ function App() {
   <Route path='/userlist' component={Userlistscreen} ></Route>   
   <Route path='/admin/user/:id/edit' component={Usereditscreen} ></Route>   
  
- 
+
   <Route path='/productlist' component={Productlistscreen} ></Route>   
+  <Route path='/admin/product/:id/edit' component={Producteditscreen} ></Route>   
   
   {/* <Mainscreen /> */}
 

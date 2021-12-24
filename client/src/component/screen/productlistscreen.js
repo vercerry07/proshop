@@ -4,7 +4,7 @@ import { Table, Button, Row, Col} from 'react-bootstrap'
 
 import {useDispatch, useSelector} from 'react-redux'
 import {LinkContainer} from 'react-router-bootstrap'
-import {listproduct, productdelete} from '../../action/productaction'
+import {listproduct, productdelete, productcreate} from '../../action/productaction'
 import Loader from '../loader'
 import Message from '../message'
 const Productlistscreen = ({history, match}) => {
@@ -16,23 +16,33 @@ const Productlistscreen = ({history, match}) => {
     const userlogin = useSelector(state => state.userlogin)
     
     
+    const productcreeate = useSelector(state => state.productcreate)
+    
+    let {loading:loadingcreate, success:successcreate, error:errorcreate, product:createdproduct} = productcreeate
+    
     let {userinfo} = userlogin
     
-    const productdelete = useSelector(state => state.productdelete)
+    const productdeletee = useSelector(state => state.productdelete)
     
-    let { success} = productdelete
+    let { success} = productdeletee
     useEffect(() => {
-    
-        if(userinfo && userinfo.isAdmin){
-      dispatch(listproduct())        
-      }
-    
-      else {
-      
+        dispatch({type:'PRODUCT_CREATE_RESET'}) 
+        if(userinfo && !userinfo.isAdmin){
         history.push('/login')
-    
       }
-    }, [dispatch, history, userinfo, success])
+    
+      
+        if(successcreate){
+      
+          history.push(`admin/product/${createdproduct._id}/edit`)
+        }  
+        
+        else {
+        dispatch(listproduct())        
+                   
+        }
+      
+    }, [dispatch, history, userinfo, success, successcreate, createdproduct])
    
     let deleteproduct= (id)=>{
       if(window.confirm('are you sure')){
@@ -41,10 +51,8 @@ const Productlistscreen = ({history, match}) => {
         
       }
     }
-
-
     let createproduct = ()=>{
-
+          dispatch(productcreate()) 
     }
     return (
         <div>
@@ -88,7 +96,7 @@ const Productlistscreen = ({history, match}) => {
             
                 </td>
                 <td>
-                  <LinkContainer to={`/productlist/${produuct._id}/edit`}>
+                  <LinkContainer to={`/admin/product/${produuct._id}/edit`}>
                     <Button variant='light' className='btn-sm'>
                       <i className='fas fa-edit'></i>
                     </Button>
@@ -103,14 +111,14 @@ const Productlistscreen = ({history, match}) => {
                 </td>
               </tr>
             ))}
-          </tbody>
-                
+          </tbody>                
               </Table>
           )}           
         </div>
     )
 
-
-
 }
+
+
+
 export default Productlistscreen

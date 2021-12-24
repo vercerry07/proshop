@@ -11,7 +11,7 @@ import thunk from 'redux-thunk'
 
 import {composeWithDevTools} from 'redux-devtools-extension'
 
-import {Productlistreducer, Productdetailreducer, Productdeletereducer} from './reducer/productreducer'
+import {Productlistreducer, Productdetailreducer, Productdeletereducer, Productcreatereducer, Productupdatereducer} from './reducer/productreducer'
 import {cartreducer} from './reducer/cartreducer'
 import {userloginreducer, userregisterreducer, userdetailreducer, userupdateprofilereducer, userlistreducer, userdeletereducer, userupdatereducer} from './reducer/userreducer'
 
@@ -38,7 +38,13 @@ let reducer = combineReducers({
   userdelete:userdeletereducer,
 
   userupdate:userupdatereducer,
-  productdelete:Productdeletereducer
+  productdelete:Productdeletereducer,
+  productcreate:Productcreatereducer,
+  
+
+
+
+  productupdate:Productupdatereducer
 })
 
 let cartitemfromstorage = localStorage.getItem('cartitem') ? JSON.parse(localStorage.getItem('cartitem')) : []

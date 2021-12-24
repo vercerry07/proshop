@@ -47,6 +47,61 @@ productrouter.delete('/:id', protect, admincheck, asynchandler( async(req,res)=>
     }
 }))
 
+productrouter.post('/createproduct', protect, admincheck, asynchandler( async(req,res)=>{
+ 
+    let product = new Product({
+      name:'test product',
+      price:1,
+      
+      
+      user: req.user._id,
+      image: '/images/sample.png',
+
+      category:'sample catagory',
+      numReviews:2,
+      description:'desription',
+      brand:'test brand',
+      countInStock:1
+    })
+     let creatredproduct = await product.save()
+     if(creatredproduct){
+        
+        
+        res.json(creatredproduct)
+     
+    }
+  else {
+      res.status(401).json({
+          message:'product can not be created'
+      })
+  }
+}))
+
+productrouter.put('/createproduct/:id', protect, admincheck, asynchandler( async(req,res)=>{
+ 
+    let product_id = req.params.id
+    let {name, price, description, image, brand, category, countInStock} = req.body
+    let product = await Product.findById(product_id)
+    if(product){
+        product.name = name
+        product.price = price
+        product.description = description
+        product.image = image
+        
+        
+        product.brand = brand
+        product.category = category
+        product.countInStock = countInStock
+        let editproduct = await product.save()
+        res.json(editproduct)    
+    }
+    else {
+        res.status(404)
+        throw new Error('product not found') 
+    }
+
+
+}))
 // productrouter.post('/order', Protect,async(req,res)=>{
 
 //     let {orderitem, shippingaddress, paymentmethod, itemPrice, taxPrice, shippingPrice, totalPrice} = req.body
