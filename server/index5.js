@@ -9,11 +9,16 @@ const userroute = require('./route/userroute')
 let {errorhandler} = require('./middleware/errormiddleware')
 const orderroute = require('./route/orderroute')
 
-let app = express()
+let uploadroute = require('./route/uploadroute')
 
+let path = require('path')
+let app = express()
 app.use(cors())
 
+
+
 mongoose.connect(process.env.mongourl).then(()=>{
+    
     console.log('mongo connected')    
     }).catch((err)=>{
     
@@ -24,11 +29,14 @@ mongoose.connect(process.env.mongourl).then(()=>{
  })
 app.use(errorhandler)
 app.use(express.json()) 
+
 app.use('/api/products', productroute)
 app.use('/api/user', userroute)
-
-
 app.use('/api/order', orderroute)
+
+app.use('/api/upload', uploadroute)
+
+app.use('/uploads', express.static(path.join(__dirname, '/upload')))
 
 app.use('/api/config/paypal', (req,res)=>{
  
@@ -41,7 +49,6 @@ app.get('/',(req,res)=>{
     res.send('hello')
 
 })
-
 
 
 app.listen(3200,console.log('server start'))
