@@ -81,9 +81,34 @@ const Producteditscreen = ({match, history}) => {
     }))
   } 
 
- let uploadfilehandler = ()=>{
+ let uploadfilehandler = async(e)=>{
+  let file = e.target.files[0] 
+  let formdata = new FormData()
+   formdata.append('image',file)  
    
- }
+
+   console.log(file)
+   setupload(true)
+
+   try {
+     let config = {
+       headers: {
+         'Content-Type':'multipart/form-data'
+       }
+     }
+     let {data} = await axios.post('/api/upload/', formdata, config)
+
+     
+     setimage(data)
+     setupload(false)
+   
+   
+    } catch (err) {
+      console.log(err)
+      setupload(false)  
+   
+    }
+  }
   
 return (
 
